@@ -1,0 +1,41 @@
+using System;
+using System.Collections;
+using BKK.UI;
+using BKK.Utility;
+using UnityEngine;
+
+public class Test : MonoBehaviour
+{
+    public RotationOnly rotationOnly = RotationOnly.Y;
+
+    public RenderTexture rt1;
+    public RenderTexture rt2;
+    
+    public Texture2D tex1;
+    
+    public Texture2D tex2;
+    
+    private void Start()
+    {
+        // CoroutineHelper.StartCoroutine(TP());
+        // var d = new byte[1];
+        // d[0] = 10;
+        // FileUtility.CreateFile("C:/Users/kikik/Desktop/t.mp4", d, true);
+        // Debug.Log(FileUtility.LoadFile("C:/Users/kikik/Desktop/t.mp4")[0]);
+
+        
+        
+    }
+
+    private void Update()
+    {
+        tex1 = rt1.ToTexture2D();
+        rt2 = tex1.ToRenderTexture();
+    }
+
+    // private IEnumerator TP()
+    // {
+    //     yield return null;
+    //     Debug.Log("!?");
+    // }
+}

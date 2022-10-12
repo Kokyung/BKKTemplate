@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 0}
-  manuallySetVisible: 0
+  setVisibleOnStart: 1
   controllerSiblingIndex: 0
 --- !u!114 &1715389074
 MonoBehaviour:

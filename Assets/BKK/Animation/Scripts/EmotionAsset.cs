@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using BKK.Tools;
+using BKK.Extension;
 using UnityEngine;
 
 #if UNITY_EDITOR

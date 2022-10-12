@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using BKK.Tools;
+using BKK.Extension;
 using UnityEngine;
+using Debug = BKK.Debugging.Debug;
 
 namespace BKK.GameEventArchitecture
 {
@@ -22,9 +23,7 @@ namespace BKK.GameEventArchitecture
             foreach (var listener in listeners)
             {
                 listener.RaiseEvent();
-#if UNITY_EDITOR
                 Debug.Log($"{this.name} 이벤트가 실행되었습니다.\n경로: {listener.GetPath()}");
-#endif
             }
         }
 
@@ -33,9 +32,7 @@ namespace BKK.GameEventArchitecture
             foreach (var listener in listeners)
             {
                 listener.StopEvent();
-#if UNITY_EDITOR
                 Debug.Log($"{this.name} 이벤트가 취소되었습니다.\n경로: {listener.GetPath()}");
-#endif
             }
         }
 

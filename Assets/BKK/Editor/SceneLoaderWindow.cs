@@ -40,7 +40,7 @@ public class SceneLoaderWindow : EditorWindow
 			{
 				sceneLoaderData.ClearList();
 
-				// 폴더지정 파일 다이알로그 띄우기
+				// 폴더 지정 파일 다이얼로그 띄우기
 				string folderPath = EditorUtility.SaveFolderPanel( "Scene 폴더 지정", Application.dataPath, "" );
 
 				// 이미 지정된 경로가 있는데 지정을 안해주고 취소했을 경우 기존 경로로 지정. - 20211228 변고경
@@ -60,7 +60,7 @@ public class SceneLoaderWindow : EditorWindow
 					if ( extension.Equals( "unity" ) == false )
 						continue;
 
-					// 지정한 폴더경로 + scene 파일명 조합하기
+					// 지정한 폴더 경로 + scene 파일명 조합하기
 					sb.Length = 0;
 
 					folderPath = folderPath.Substring(folderPath.IndexOf("Assets"));

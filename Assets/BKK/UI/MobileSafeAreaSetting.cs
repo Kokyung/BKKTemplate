@@ -8,7 +8,7 @@ namespace BKK.UI
     /// <summary>
     /// 모바일 디바이스의 Safe Area에 맞춰 UI를 조정해주는 컴포넌트입니다.
     /// </summary>
-    public sealed class SafeAreaSetter : MonoBehaviour
+    public sealed class MobileSafeAreaSetting : MonoBehaviour
     {
         private Canvas canvas;
         private RectTransform panelSafeArea;

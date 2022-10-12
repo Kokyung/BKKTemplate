@@ -10,16 +10,15 @@ namespace BKK.UI
     [RequireComponent(typeof(CanvasGroup))]
     [RequireComponent(typeof(CanvasScaler))]
     [RequireComponent(typeof(GraphicRaycaster))]
-    [RequireComponent(typeof(SafeAreaSetter))]
+    [RequireComponent(typeof(MobileSafeAreaSetting))]
     [RequireComponent(typeof(CanvasScalerCalculator))]
     public sealed class MasterCanvas : MonoBehaviour
     {
         private Canvas _canvas;
-        private SafeAreaSetter _safeAreaSetter;
 
         public CanvasGroup _canvasGroup;
 
-        public bool manuallySetVisible = false;
+        public bool setVisibleOnStart = true;
 
         public int controllerSiblingIndex = 0;
 
@@ -30,21 +29,18 @@ namespace BKK.UI
 
         private void Start()
         {
-            if (!manuallySetVisible) SetMasterCanvasVisible(true);
+            SetMasterCanvasVisible(setVisibleOnStart);
         }
 
         private void Init()
         {
             GetCanvasComponents();
-
-            SetMasterCanvasVisible(false);
         }
         
         private void GetCanvasComponents()
         {
             if (!_canvas) _canvas = GetComponent<Canvas>();
             if (!_canvasGroup) _canvasGroup = GetComponent<CanvasGroup>();
-            if (!_safeAreaSetter) _safeAreaSetter = GetComponent<SafeAreaSetter>();
         }
 
         public void SetController(bool enable)
@@ -60,16 +56,24 @@ namespace BKK.UI
         
         public void SetServantUIVisible(int siblingIndex, bool enable)
         {
-            var child = transform.GetChild(siblingIndex).GetComponent<CanvasGroup>();
-            if (child != null)
+            var child = transform.GetChild(siblingIndex);
+
+            if (!child)
             {
-                child.interactable = enable;
-                child.alpha = enable ? 1 : 0;
+                Debug.Log($"{siblingIndex}번째 Child가 존재하지 않습니다.");
+                return;
             }
-            else
+            
+            var cg = child.GetComponent<CanvasGroup>();
+
+            if (!cg)
             {
                 Debug.Log($"{siblingIndex}번째 Child에 CanvasGroup이 존재하지 않습니다.");
+                return;
             }
+            
+            cg.interactable = enable;
+            cg.alpha = enable ? 1 : 0;
         }
     }
 }
