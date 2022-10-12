@@ -1,0 +1,58 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace BKK.UI
+{
+    [RequireComponent(typeof(CanvasScaler))]
+    public sealed class CanvasScalerCalculator : MonoBehaviour
+    {
+        private Canvas canvas;
+        private CanvasScaler canvasScaler;
+
+        [SerializeField] private Vector2 defaultResolution = new Vector2(1920, 1080);
+        
+        private float match = 1;
+        
+        private void Start()
+        {
+            SetProperties();
+            SetMatch();
+        }
+
+        private void Update()
+        {
+            if(Application.isPlaying) SetMatch();
+        }
+
+        private void OnValidate()
+        {
+            if(!Application.isPlaying) SetProperties();
+        }
+
+        private void SetProperties()
+        {
+            canvasScaler = GetComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = defaultResolution;
+            canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            canvasScaler.referencePixelsPerUnit = 100;
+        }
+
+        public void SetMatch()
+        {
+            if (Screen.width > Screen.height)
+            {
+                match = 1.0f - ((float) Screen.height / (float) Screen.width);
+            }
+            else
+            {
+                match = 1.0f - ((float) Screen.width / (float) Screen.height);
+            }
+
+            canvasScaler.matchWidthOrHeight = match;
+        }
+    }
+}
