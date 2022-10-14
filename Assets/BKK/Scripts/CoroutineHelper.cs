@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Debug = BKK.Debugging.Debug;
 
 /// <summary>
 /// Monobehaviour를 상속받지 않은 클래스에서 코루틴을 호출할 수 있도록 해주는 클래스입니다.
@@ -14,17 +15,20 @@ public sealed class CoroutineHelper : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initializer()
     {
-        var go = new GameObject($"[{nameof(CoroutineHelper)}]", typeof(CoroutineHelper));
-        go.hideFlags = HideFlags.HideInHierarchy;
+        var go = new GameObject($"[{nameof(CoroutineHelper)}]", typeof(CoroutineHelper))
+        {
+            hideFlags = HideFlags.HideInHierarchy
+        };
         monoInstance = go.GetComponent<CoroutineHelper>();
         DontDestroyOnLoad(monoInstance.gameObject);
     }
     
-    public new static Coroutine StartCoroutine(IEnumerator coroutine)
+    public new static Coroutine StartCoroutine(IEnumerator routine)
     {
-        return monoInstance.StartCoroutine(coroutine);
+        StartCoroutineLog(routine);
+        return monoInstance.StartCoroutine(routine);
     }
-    
+
     public new static void StopCoroutine(Coroutine coroutine)
     {
         monoInstance.StopCoroutine(coroutine);
@@ -33,5 +37,26 @@ public sealed class CoroutineHelper : MonoBehaviour
     public new static void StopAllCoroutines()
     {
         monoInstance.StopAllCoroutines();
+    }
+
+    private static void StartCoroutineLog(IEnumerator coroutine)
+    {
+        var nameData = ExtractName(coroutine);
+        
+        var str = $"[CoroutineHelper] IEnumerator {nameData[1]} in {nameData[0]} Class is called by CoroutineHelper";
+        
+        Debug.Log(str);
+    }
+
+    private static string[] ExtractName(IEnumerator coroutine)
+    {
+        // ToString Rule: className+<IEnumeratorName>d__7
+
+        var coroutineString = coroutine.ToString();
+
+        var className = coroutineString.Split('+')[0];
+        var methodName = coroutineString.Split('<')[1].Split('>')[0];
+
+        return new[] {className, methodName};
     }
 }

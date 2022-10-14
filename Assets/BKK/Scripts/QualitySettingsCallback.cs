@@ -6,8 +6,6 @@ using UnityEngine.Events;
 
 public class QualitySettingsCallback : MonoBehaviour
 {
-    private static QualitySettingsCallback qualitySettingsCallback;
-    
     /// <summary>
     /// 퀄리티 레벨이 변경되었을때 호출합니다.<br /><br />
     /// 첫번째 매개변수: 변경된 레벨
@@ -19,10 +17,14 @@ public class QualitySettingsCallback : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initializer()
     {
-        qualitySettingsCallback = new GameObject($"[{nameof(QualitySettingsCallback)}]").AddComponent<QualitySettingsCallback>();
-        DontDestroyOnLoad(qualitySettingsCallback.gameObject);
+        var go = new GameObject($"[{nameof(QualitySettingsCallback)}]", typeof(QualitySettingsCallback))
+        {
+            hideFlags = HideFlags.HideInHierarchy
+        };
+        
+        DontDestroyOnLoad(go);
     }
-    
+
     private void Awake()
     {
         beforeLevel = QualitySettings.GetQualityLevel();

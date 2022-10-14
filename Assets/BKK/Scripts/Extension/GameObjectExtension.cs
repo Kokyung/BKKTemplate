@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using Debug = BKK.Debugging.Debug;
 
 namespace BKK.Extension
 {
@@ -47,6 +45,7 @@ namespace BKK.Extension
             }
             catch (System.Exception e)
             {
+                Debug.Log(e.Message);
                 return true;
             }
         }
@@ -138,9 +137,6 @@ namespace BKK.Extension
             tr.position = tr.position.InsertXZ(x, z);
             return tr;
         }
-
-
-
 
         public static bool ContainsScreenPoint(this RectTransform rectTransform, Vector3 pos)
         {
