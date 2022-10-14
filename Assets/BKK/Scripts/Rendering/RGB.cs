@@ -23,7 +23,8 @@ namespace BKK.Rendering
         [SerializeField] private Renderer rgbRenderer;
         [SerializeField] private int materialTargetIndex = 0;
 
-        private static readonly int emissionColor = Shader.PropertyToID("_EmissionColor");
+        private static readonly int colorID = Shader.PropertyToID("_Color");
+        private static readonly int emissionColorID = Shader.PropertyToID("_EmissionColor");
 
         public float speed = 5f;
 
@@ -36,6 +37,10 @@ namespace BKK.Rendering
         private Color currentColor;
 
         private float timeCheck = 0;
+
+        private bool emissionEnabled = false;
+        
+        private bool end = true;
 
         private void Awake()
         {
@@ -80,8 +85,6 @@ namespace BKK.Rendering
             StartCoroutine(Co_Straight());
         }
 
-        private bool end = true;
-
         private IEnumerator ColorLerp(Color a, Color b)
         {
             timeCheck = 0;
@@ -90,7 +93,10 @@ namespace BKK.Rendering
             {
                 timeCheck += Time.deltaTime;
                 currentColor = Color.Lerp(a, b, timeCheck * speed / 10);
-                rgbRenderer.materials[materialTargetIndex].SetColor(emissionColor, currentColor * intensity);
+                emissionEnabled = rgbRenderer.materials[materialTargetIndex].IsKeywordEnabled("_EMISSION");
+
+                rgbRenderer.materials[materialTargetIndex].SetColor(emissionEnabled ? emissionColorID : colorID, 
+                    currentColor * intensity);
                 if (currentColor == b) break;
                 yield return null;
             }
