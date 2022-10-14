@@ -19,6 +19,7 @@ public sealed class CoroutineHelper : MonoBehaviour
         {
             hideFlags = HideFlags.HideInHierarchy
         };
+        
         monoInstance = go.GetComponent<CoroutineHelper>();
         DontDestroyOnLoad(monoInstance.gameObject);
     }

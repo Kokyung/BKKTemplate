@@ -73,15 +73,15 @@ namespace BKK.GameEventArchitecture
                     if (GUILayout.Button("저장"))
                     {
                         descriptionOption.locked = true;
-                        EditorUtility.SetDirty(gameEvent);
+                        UnityEditor.EditorUtility.SetDirty(gameEvent);
                     }
                 }
             }
 
             if (EditorApplication.isPlaying) GUI.enabled = true;
 
-            EditorUtility.SetDirty(gameEvent);
-            if(descriptionOption) EditorUtility.SetDirty(descriptionOption);
+            UnityEditor.EditorUtility.SetDirty(gameEvent);
+            if(descriptionOption) UnityEditor.EditorUtility.SetDirty(descriptionOption);
         }
 
         /// <summary>

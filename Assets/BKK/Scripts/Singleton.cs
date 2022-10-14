@@ -1,3 +1,4 @@
+using BKK.EditorCustomUtility;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
@@ -33,7 +34,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     var singleton = new GameObject();
                     _instance = singleton.AddComponent<T>();
                     singleton.name = typeof(T).ToString();
-
+                    
+                    #if UNITY_EDITOR
+                    singleton.AddComponent<GameObjectStealthMode>();
+                    #endif
+                    
                     DontDestroyOnLoad(singleton);
                 }
                 else

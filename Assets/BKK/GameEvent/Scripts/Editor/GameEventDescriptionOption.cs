@@ -36,7 +36,7 @@ namespace BKK.GameEventArchitecture
 
         public static void CreateAsset()
         {
-            var path = EditorUtility.SaveFilePanelInProject("설명 옵션 파일 저장", "GameEventDescriptionOption", "asset", "");
+            var path = UnityEditor.EditorUtility.SaveFilePanelInProject("설명 옵션 파일 저장", "GameEventDescriptionOption", "asset", "");
             if (path.Equals(string.Empty)) return;
 
             GameEventDescriptionOption asset = ScriptableObject.CreateInstance<GameEventDescriptionOption>();
