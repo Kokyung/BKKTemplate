@@ -9,6 +9,8 @@ using UnityEditor.Callbacks;
 
 public class PostBuildProcessor : MonoBehaviour
 {
+    private const string clipPath = "BuildComplete-HyunJu";
+
     [PostProcessBuild(1)]
     public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
     {
@@ -19,6 +21,9 @@ public class PostBuildProcessor : MonoBehaviour
     private static async void BuildCompleteSound()
     {
         await Task.Delay(2000);
-        EditorSFX.PlayClip(Resources.Load<AudioClip>("BuildComplete-HyunJu"));
+        
+        EditorUtility.audioMasterMute = false;
+
+        EditorSFX.PlayClip(Resources.Load<AudioClip>(clipPath));
     }
 }
