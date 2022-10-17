@@ -25,6 +25,13 @@ public class Test : MonoBehaviour
         // d[0] = 10;
         // FileUtility.CreateFile("C:/Users/kikik/Desktop/t.mp4", d, true);
         // Debug.Log(FileUtility.LoadFile("C:/Users/kikik/Desktop/t.mp4")[0]);
+
+        var name = "변고경";
+        var comp = name.Compress();
+        var decomp = comp.Decompress();
+        
+        BKK.Debugging.Debug.Log(comp);
+        BKK.Debugging.Debug.Log(decomp);
     }
 
     private void Update()
