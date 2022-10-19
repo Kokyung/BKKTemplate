@@ -13,54 +13,76 @@ namespace BKK.Extension
     public static class StringCompression
     {
         /// <summary>
-        /// Compresses a string and returns a deflate compressed, Base64 encoded string.
+        /// 문자열을 압축하여 Base64 문자열로 반환합니다.
         /// </summary>
         /// <param name="uncompressedString">String to compress</param>
         public static string Compress(this string uncompressedString)
         {
-            byte[] compressedBytes;
-
-            using (var uncompressedStream = new MemoryStream(Encoding.UTF8.GetBytes(uncompressedString)))
-            {
-                using (var compressedStream = new MemoryStream())
-                {
-                    // setting the leaveOpen parameter to true to ensure that compressedStream will not be closed when compressorStream is disposed
-                    // this allows compressorStream to close and flush its buffers to compressedStream and guarantees that compressedStream.ToArray() can be called afterward
-                    // although MSDN documentation states that ToArray() can be called on a closed MemoryStream, I don't want to rely on that very odd behavior should it ever change
-                    using (var compressorStream = new DeflateStream(compressedStream, CompressionMode.Compress, true))
-                    {
-                        uncompressedStream.CopyTo(compressorStream);
-                    }
-
-                    // call compressedStream.ToArray() after the enclosing DeflateStream has closed and flushed its buffer to compressedStream
-                    compressedBytes = compressedStream.ToArray();
-                }
-            }
+            var compressedBytes = Encoding.UTF8.GetBytes(uncompressedString).Compress();
 
             return Convert.ToBase64String(compressedBytes);
         }
 
         /// <summary>
-        /// Decompresses a deflate compressed, Base64 encoded string and returns an uncompressed string.
+        /// Base64 형태로 압축된 문자열을 압축 해제합니다.
         /// </summary>
         /// <param name="compressedString">String to decompress.</param>
         public static string Decompress(this string compressedString)
         {
+            var decompressedBytes = Convert.FromBase64String(compressedString).Decompress();
+
+            return Encoding.UTF8.GetString(decompressedBytes);
+        }
+    }
+    
+    public static class ByteArrayCompression
+    {
+        /// <summary>
+        /// 바이트 배열을 DeflateStream을 이용하여 압축합니다.
+        /// </summary>
+        /// <param name="uncompressedBytes">Byte Array to compress</param>
+        public static byte[] Compress(this byte[] uncompressedBytes)
+        {
+            byte[] compressedBytes;
+    
+            using (var uncompressedStream = new MemoryStream(uncompressedBytes))
+            {
+                using (var compressedStream = new MemoryStream())
+                {
+                    using (var compressorStream = new DeflateStream(compressedStream, CompressionMode.Compress, true))
+                    {
+                        uncompressedStream.CopyTo(compressorStream);
+                    }
+                    
+                    // ToArray()가 호출되려면 DeflateStream이 닫히고 버퍼가 플러쉬 되야 가능하다.
+                    compressedBytes = compressedStream.ToArray();
+                }
+            }
+    
+            return compressedBytes;
+        }
+    
+        /// <summary>
+        /// DeflateStream을 이용하여 압축한 바이트 배열을 압축 해제합니다.
+        /// </summary>
+        /// <param name="compressedBytes">Byte Array to decompress.</param>
+        public static byte[] Decompress(this byte[] compressedBytes)
+        {
             byte[] decompressedBytes;
-
-            var compressedStream = new MemoryStream(Convert.FromBase64String(compressedString));
-
+    
+            var compressedStream = new MemoryStream(compressedBytes);
+    
             using (var decompressorStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
             {
                 using (var decompressedStream = new MemoryStream())
                 {
                     decompressorStream.CopyTo(decompressedStream);
-
+    
                     decompressedBytes = decompressedStream.ToArray();
                 }
             }
-
-            return Encoding.UTF8.GetString(decompressedBytes);
+    
+            return decompressedBytes;
         }
     }
 }
