@@ -91,9 +91,15 @@ namespace BKK.Rendering
 
             while (true)
             {
+                var mat = rgbRenderer.materials[materialTargetIndex];
+                
                 timeCheck += Time.deltaTime;
                 currentColor = Color.Lerp(a, b, timeCheck * speed / 10);
-                emissionEnabled = rgbRenderer.materials[materialTargetIndex].IsKeywordEnabled("_EMISSION");
+                
+                emissionEnabled = mat.IsKeywordEnabled("_EMISSION");
+
+                if (emissionEnabled && mat.globalIlluminationFlags != MaterialGlobalIlluminationFlags.RealtimeEmissive)
+                    mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
 
                 rgbRenderer.materials[materialTargetIndex].SetColor(emissionEnabled ? emissionColorID : colorID, 
                     currentColor * intensity);
