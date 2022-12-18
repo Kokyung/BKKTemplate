@@ -11,8 +11,8 @@ public class PackageImporter : AssetPostprocessor
     private static SerializedProperty layers;
     private static SerializedProperty tags;
     
-    private static int maxTags = 10000;
-    private static int maxLayers = 31;
+    private const int maxTags = 10000;
+    private const int maxLayers = 31;
 
     private const string packageName = "PackageNameExample";
 

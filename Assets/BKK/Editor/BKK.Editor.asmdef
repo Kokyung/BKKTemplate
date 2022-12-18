@@ -1,0 +1,18 @@
+{
+    "name": "BKK.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:68815d23226319d49a72e1a619b2d779"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

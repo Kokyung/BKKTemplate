@@ -43,15 +43,15 @@ namespace BKK.UI
 
         public void SetMatch()
         {
-            if (Screen.width > Screen.height)
-            {
-                match = 1.0f - ((float) Screen.height / (float) Screen.width);
-            }
-            else
-            {
-                match = 1.0f - ((float) Screen.width / (float) Screen.height);
-            }
+            if (!canvasScaler) return;
 
+            float match = 1;
+
+            var screenRatio = (float) Screen.width / (float) Screen.height;
+            var scalerRatio = canvasScaler.referenceResolution.x / canvasScaler.referenceResolution.y;
+        
+            match = screenRatio > scalerRatio ? 1.0f : 0f;
+         
             canvasScaler.matchWidthOrHeight = match;
         }
     }
