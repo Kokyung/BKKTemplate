@@ -70,3 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# 추가 제외 대상
+/.idea
+addressables_content_state.bin
+addressables_content_state.bin.meta
+UserSettings/AndroidLogcatSettings.asset
