@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04ba62e53be7fd498a4361abef28558, type: 3}
-  m_Name: SceneLoaderData
+  m_Script: {fileID: 11500000, guid: b1487f5d688e4f94f828f879d599dbdc, type: 3}
+  m_Name: Built In Data_PlayerDataGroupSchema
   m_EditorClassIdentifier: 
-  currentPath: D:/BKKTemplate/Assets/Scenes
-  sceneNameList:
-  - SampleScene.unity
-  scenePathList:
-  - Assets/Scenes/SampleScene.unity
-  loadSceneWhenPlay: 0
-  defaultSceneIndex: 0
-  mode: 0
+  m_Group: {fileID: 11400000, guid: dd04d7704e93ce341aaba4a512e4165d, type: 2}
+  m_IncludeResourcesFolders: 1
+  m_IncludeBuildSettingsScenes: 1
