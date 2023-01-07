@@ -2,6 +2,11 @@
 
 유니티 엔진을 사용하면서 유용한 기능들을 함수화하여 모아놓은 유니티 프로젝트 템플릿입니다.
 
+본 템플릿은 다음 서드파티 에셋을 포함합니다
+- [Cysharp/UniTask](https://github.com/Cysharp/UniTask)
+- [neuecc/UniRx](https://github.com/neuecc/UniRx)
+- [yasirkula/UnityNativeFilePicker](https://github.com/yasirkula/UnityNativeFilePicker)
+
 [포함되어 있는 기능]
 
 - 게임 이벤트 구조
