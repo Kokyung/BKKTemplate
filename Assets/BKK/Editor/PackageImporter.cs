@@ -19,19 +19,19 @@ public class PackageImporter : AssetPostprocessor
     private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
         string[] movedFromAssetPaths)
     {
-        var inPackages = importedAssets.Any(path => path.Contains(packageName));
-        
-        var outPackages = deletedAssets.Any(path => path.Contains(packageName));
-        
-        if (inPackages)
-        {
-            
-        }
-
-        if (outPackages)
-        {
-            
-        }
+        // var inPackages = importedAssets.Any(path => path.Contains(packageName));
+        //
+        // var outPackages = deletedAssets.Any(path => path.Contains(packageName));
+        //
+        // if (inPackages)
+        // {
+        //     
+        // }
+        //
+        // if (outPackages)
+        // {
+        //     
+        // }
     }
 
     [InitializeOnLoadMethod]

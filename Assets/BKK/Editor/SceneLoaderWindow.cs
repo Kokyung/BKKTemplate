@@ -26,8 +26,6 @@ public class SceneLoaderWindow : EditorWindow
 		}
 	}
 
-	private string currentPath;
-	
 	void OnGUI()
 	{
 		CommonFunctionEditor.DrawUILine( Color.gray );
@@ -38,47 +36,26 @@ public class SceneLoaderWindow : EditorWindow
 		{
 			if ( sceneLoaderData != null )
 			{
-				sceneLoaderData.ClearList();
-
 				// 폴더 지정 파일 다이얼로그 띄우기
 				string folderPath = EditorUtility.SaveFolderPanel( "Scene 폴더 지정", Application.dataPath, "" );
 
 				// 이미 지정된 경로가 있는데 지정을 안해주고 취소했을 경우 기존 경로로 지정. - 20211228 변고경
-				if ( string.IsNullOrEmpty( folderPath ) && !string.IsNullOrEmpty( currentPath ) )
+				if ( string.IsNullOrEmpty( folderPath ) && !string.IsNullOrEmpty( sceneLoaderData.currentPath ) )
 				{
-					folderPath = currentPath;
+					folderPath = sceneLoaderData.currentPath;
 				}
 
-				currentPath = folderPath;
+				sceneLoaderData.currentPath = folderPath;
 				
-				// 지정된 폴더경로에서 scene 파일만 찾아오기
-				StringBuilder sb = new StringBuilder();
-				System.IO.DirectoryInfo di = new System.IO.DirectoryInfo( folderPath );
-				foreach ( System.IO.FileInfo file in di.GetFiles() )
-				{
-					string extension = file.Name.Substring( file.Name.Length - 5, 5 );
-					if ( extension.Equals( "unity" ) == false )
-						continue;
-
-					// 지정한 폴더 경로 + scene 파일명 조합하기
-					sb.Length = 0;
-
-					folderPath = folderPath.Substring(folderPath.IndexOf("Assets"));
-					
-					sb.Append( folderPath );
-					sb.Append( "/" );
-					sb.Append( file.Name );
-
-					sceneLoaderData.AddSceneName( file.Name );
-					sceneLoaderData.AddScenePath( sb.ToString() );
-				}
-
 				if ( sceneLoaderData.GetSceneNameListCount() == 0 )
 					EditorUtility.DisplayDialog( "안내 팝업", "폴더 내에 scene 파일이 없습니다.", "확인" );
 			}
 		}
 		GUILayout.EndHorizontal();
 
+		// 지정된 폴더 경로의 Scene 에셋 리스트 갱신
+		RefreshSceneList(sceneLoaderData.currentPath);
+		
 		if ( sceneLoaderData != null )
 			sceneLoaderData.DrawSceneList();
 
@@ -96,6 +73,35 @@ public class SceneLoaderWindow : EditorWindow
 		CommonFunctionEditor.DrawUILine( Color.gray );
 	}
 
+	private void RefreshSceneList(string folderPath)
+	{
+		if (folderPath == null) return;
+		
+		StringBuilder sb = new StringBuilder();
+		System.IO.DirectoryInfo di = new System.IO.DirectoryInfo( folderPath );
+		
+		sceneLoaderData.ClearList();
+		
+		foreach ( System.IO.FileInfo file in di.GetFiles() )
+		{
+			string extension = file.Name.Substring( file.Name.Length - 5, 5 );
+			if ( extension.Equals( "unity" ) == false )
+				continue;
+
+			// 지정한 폴더 경로 + scene 파일명 조합하기
+			sb.Length = 0;
+
+			folderPath = folderPath.Substring(folderPath.IndexOf("Assets"));
+					
+			sb.Append( folderPath );
+			sb.Append( "/" );
+			sb.Append( file.Name );
+
+			sceneLoaderData.AddSceneName( file.Name );
+			sceneLoaderData.AddScenePath( sb.ToString() );
+		}
+	}
+	
 	/// <summary>
 	/// 유니티 에디터에 메뉴 추가하기
 	/// </summary>

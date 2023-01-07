@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04ba62e53be7fd498a4361abef28558, type: 3}
   m_Name: SceneLoaderData
   m_EditorClassIdentifier: 
-  sceneNameList: []
-  scenePathList: []
+  currentPath: D:/BKKTemplate/Assets/Scenes
+  sceneNameList:
+  - New Scene 1.unity
+  - New Scene.unity
+  - SampleScene.unity
+  scenePathList:
+  - Assets/Scenes/New Scene 1.unity
+  - Assets/Scenes/New Scene.unity
+  - Assets/Scenes/SampleScene.unity
   loadSceneWhenPlay: 0
   defaultSceneIndex: 0
   mode: 0

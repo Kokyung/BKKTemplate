@@ -16,6 +16,8 @@ using Unity.Collections;
 [CreateAssetMenu( fileName = "SceneLoaderData", menuName = "BKK/Scene Loader Data" )]
 public sealed class SceneLoaderData : ScriptableObject
 {
+	public string currentPath;
+	
 	[ReadOnly]
 	public List<string> sceneNameList = new List<string>();
 
