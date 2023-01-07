@@ -67,5 +67,29 @@ namespace BKK.Utility
             Graphics.Blit(texture2D, renderTexture);
             return renderTexture;
         }
+
+        public static float GetAverageFrameRate()
+        {
+            return 1.0f / Time.smoothDeltaTime;
+        }
+        
+        public static float GetCurrentFrameRate()
+        {
+            return 1.0f / Time.deltaTime;
+        }
+
+        public static bool CurrentFrameRateIsUpperThan(float targetFrameRate)
+        {
+            var average = 1.0f / Time.smoothDeltaTime;
+
+            return average >= targetFrameRate;
+        }
+        
+        public static bool CurrentFrameRateIsLowerThan(float targetFrameRate)
+        {
+            var average = 1.0f / Time.smoothDeltaTime;
+
+            return average < targetFrameRate;
+        }
     }
 }

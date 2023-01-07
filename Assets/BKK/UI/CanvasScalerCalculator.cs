@@ -45,7 +45,7 @@ namespace BKK.UI
         {
             if (!canvasScaler) return;
 
-            float match = 1;
+            match = 1;
 
             var screenRatio = (float) Screen.width / (float) Screen.height;
             var scalerRatio = canvasScaler.referenceResolution.x / canvasScaler.referenceResolution.y;
