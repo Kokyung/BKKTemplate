@@ -1,8 +1,18 @@
-# BKKTemplate
+# BKK Template
 
 유니티 엔진을 사용하면서 유용한 기능들을 함수화하여 모아놓은 유니티 프로젝트 템플릿입니다.
 
-본 템플릿은 다음 서드파티 에셋을 포함합니다
+본 템플릿은 다음 패키지를 포함합니다.
+
+Unity
+- Input System
+- Cinemachine
+- Localization
+- Memory Profiler
+- Android Logcat
+- Device Simulator
+
+Other
 - [Cysharp/UniTask](https://github.com/Cysharp/UniTask)
 - [neuecc/UniRx](https://github.com/neuecc/UniRx)
 - [yasirkula/UnityNativeFilePicker](https://github.com/yasirkula/UnityNativeFilePicker)
