@@ -32,5 +32,5 @@ Other
 기타 등등
 
 
-
-저작권 권리: 누구든 사용 가능합니다.
+# License
+MIT License.
