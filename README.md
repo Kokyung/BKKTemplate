@@ -4,7 +4,7 @@
 
 본 템플릿은 다음 패키지를 포함합니다.
 
-Unity
+##### Unity
 - Input System
 - Cinemachine
 - Localization
@@ -12,12 +12,12 @@ Unity
 - Android Logcat
 - Device Simulator
 
-Other
+##### Other
 - [Cysharp/UniTask](https://github.com/Cysharp/UniTask)
 - [neuecc/UniRx](https://github.com/neuecc/UniRx)
 - [yasirkula/UnityNativeFilePicker](https://github.com/yasirkula/UnityNativeFilePicker)
 
-[포함되어 있는 기능]
+#### 포함되어 있는 기능
 
 - 게임 이벤트 구조
 - 에디터 편의 기능
