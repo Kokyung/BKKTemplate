@@ -55,6 +55,8 @@ namespace Azure.Custom
         {
             if(!debug) return;
             
+            GUI.Label(new Rect(Screen.width/2 - 200, 50,400,50), "본인 Azure Storage를 이용하여 설정하시기 바랍니다.");
+            
             if (GUI.Button(new Rect(50, 50, 100, 40), "비디오 업로드"))
             {
                 PickAndUploadVideoFile();
