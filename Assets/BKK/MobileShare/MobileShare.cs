@@ -2,8 +2,14 @@ using UnityEngine;
 
 namespace BKK.Native
 {
-    public static class MobileShareModule
+    public static class MobileShare
     {
+        /// <summary>
+        /// 문자 메시지를 공유합니다.(모바일 전용)
+        /// </summary>
+        /// <param name="title">제목</param>
+        /// <param name="message">메세지</param>
+        /// <param name="callback">공유 성공시 콜백</param>
         public static void ShareTextMessage(string title, string message, NativeShare.ShareResultCallback callback = null)
         {
             NativeShare share = new NativeShare();
@@ -16,6 +22,13 @@ namespace BKK.Native
             share.Share();
         }
     
+        /// <summary>
+        /// Texture2D를 공유합니다.(모바일 전용)
+        /// </summary>
+        /// <param name="texture">이미지</param>
+        /// <param name="title">제목</param>
+        /// <param name="message">메세지</param>
+        /// <param name="callback">공유 성공시 콜백</param>
         public static void ShareTexture2D(Texture2D texture, string title, string message, NativeShare.ShareResultCallback callback = null)
         {
             NativeShare share = new NativeShare();
