@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using BKK.Extension;
 using UnityEngine;
 using UnityEngine.Events;
-
+using Debug = BKK.Debugging.Debug;
 
 namespace BKK.GameEventArchitecture
 {
@@ -70,6 +70,8 @@ namespace BKK.GameEventArchitecture
         /// </summary>
         public void RaiseEvent()
         {
+            if (!this.gameObject.activeSelf) return;
+            
             StartCoroutine(RunEvent());
             StartCoroutine(RunEndEvent());
         }
@@ -182,6 +184,8 @@ namespace BKK.GameEventArchitecture
         /// </summary>
         public void RaiseEvent(Ttype value)
         {
+            if (!this.gameObject.activeSelf) return;
+
             StartCoroutine(RunEvent(value));
             StartCoroutine(RunEndEvent(value));
         }

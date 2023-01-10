@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace BKK.GameEventArchitecture
 {
     public interface IGameEvent
