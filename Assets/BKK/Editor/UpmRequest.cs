@@ -29,14 +29,13 @@ public static class UpmRequest
     {
         // Add a package to the project
         addRequest = Client.Add(identifier);
-        EditorApplication.update += OnProgressAdd;
+        //EditorApplication.update += OnProgressAdd;
     }
     
     private static void Remove(string identifier)
     {
         // Add a package to the project
         removeRequest = Client.Remove(identifier);
-        EditorApplication.update += OnProgressAdd;
     }
     
     private static void List()
