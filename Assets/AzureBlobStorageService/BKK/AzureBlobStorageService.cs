@@ -108,10 +108,32 @@ namespace Azure.Custom
                 {
                     var fileName = path.Substring(path.LastIndexOf('/') + 1);
                     var fileFormat = fileName.Substring(fileName.LastIndexOf('.') + 1).ToLower();
-                    await UploadVideoFile(path, defaultContainerPath, fileName, fileFormat);
+                    await UploadVideoFile(path, videoContainerPath, fileName, fileFormat);
                     
                     tempFileName = fileName;
-                    tempPath = defaultContainerPath;
+                    tempPath = videoContainerPath;
+                }
+            });
+        }
+        
+        public void PickAndUploadVideoFile(Action<string> url)
+        {
+            filePicker.PickVideoFile(async delegate(string[] paths)
+            {
+                foreach (var path in paths)
+                {
+                    var fileName = path.Substring(path.LastIndexOf('/') + 1);
+                    var fileFormat = fileName.Substring(fileName.LastIndexOf('.') + 1).ToLower();
+                    await UploadVideoFile(path, videoContainerPath, fileName, fileFormat, delegate(RestResponse response)
+                    {
+                        if (!response.IsError)
+                        {
+                            url.Invoke(GetVideoFileUrl(fileName));
+                        }
+                    });
+                    
+                    tempFileName = fileName;
+                    tempPath = videoContainerPath;
                 }
             });
         }
@@ -283,53 +305,53 @@ namespace Azure.Custom
         
         #region Upload
 
-        public async Task UploadVideoFile(string filePath, string blobPath, string fileNameOnBlob, string fileType = "mp4")
+        public async Task UploadVideoFile(string filePath, string blobPath, string fileNameOnBlob, string fileType = "mp4", Action<RestResponse> response = null)
         {
             var data = File.ReadAllBytes(filePath);
             var contentType = $"video/{fileType}";
             
-            await UploadFile(OnPutBlobResponse, data, blobPath, fileNameOnBlob, contentType);
+            await UploadFile(response, data, blobPath, fileNameOnBlob, contentType);
         }
         
-        public async Task UploadAudioFile(string filePath, string blobPath, string fileNameOnBlob, string fileType = "wav")
+        public async Task UploadAudioFile(string filePath, string blobPath, string fileNameOnBlob, string fileType = "wav", Action<RestResponse> response = null)
         {
             var data = File.ReadAllBytes(filePath);
             var contentType = $"audio/{fileType}";
             
-            await UploadFile(OnPutBlobResponse, data, blobPath, fileNameOnBlob, contentType);
+            await UploadFile(response, data, blobPath, fileNameOnBlob, contentType);
         }
         
-        public async Task UploadImageFile(string filePath, string blobPath, string fileNameOnBlob, string fileType = "png")
+        public async Task UploadImageFile(string filePath, string blobPath, string fileNameOnBlob, string fileType = "png", Action<RestResponse> response = null)
         {
             var data = File.ReadAllBytes(filePath);
             var contentType = $"image/{fileType}";
             
-            await UploadFile(OnPutBlobResponse, data, blobPath, fileNameOnBlob, contentType);
+            await UploadFile(response, data, blobPath, fileNameOnBlob, contentType);
         }
         
-        public async Task UploadText(string filePath, string blobPath, string fileNameOnBlob)
+        public async Task UploadText(string filePath, string blobPath, string fileNameOnBlob, Action<RestResponse> response = null)
         {
             var data = File.ReadAllBytes(filePath);
             var contentType = "text/plain; charset=UTF-8";
             
-            await UploadFile(OnPutBlobResponse, data, blobPath, fileNameOnBlob, contentType);
+            await UploadFile(response, data, blobPath, fileNameOnBlob, contentType);
         }
         
-        public async Task UploadAssetBundle(string filePath, string blobPath, string fileNameOnBlob)
+        public async Task UploadAssetBundle(string filePath, string blobPath, string fileNameOnBlob, Action<RestResponse> response = null)
         {
             var data = File.ReadAllBytes(filePath);
             var contentType = "application/octet-stream";
             
-            await UploadFile(OnPutBlobResponse, data, blobPath, fileNameOnBlob, contentType);
+            await UploadFile(response, data, blobPath, fileNameOnBlob, contentType);
         }
         
-        public async Task UploadFile(Action<RestResponse> responseAction, byte[] data, string blobPath, string fileNameOnBlob, string contentType)
+        public async Task UploadFile(Action<RestResponse> response, byte[] data, string blobPath, string fileNameOnBlob, string contentType)
         {
             var convertedName = Uri.EscapeUriString(fileNameOnBlob);
             
-            responseAction += OnPutBlobResponse;
+            response += OnPutBlobResponse;
 
-            var putRoutine = blobService.PutBlob(responseAction, data, blobPath, convertedName, contentType);
+            var putRoutine = blobService.PutBlob(response, data, blobPath, convertedName, contentType);
 
             await putRoutine;
         }
@@ -441,7 +463,7 @@ namespace Azure.Custom
 
         private void HandleError(string errorMessage)
         {
-            if (errorMessage == string.Empty) return;
+            if (string.IsNullOrEmpty(errorMessage)) return;
 
             if (errorMessage.Contains("RequestEntityTooLarge"))
             {
