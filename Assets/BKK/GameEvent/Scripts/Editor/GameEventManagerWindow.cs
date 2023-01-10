@@ -578,7 +578,7 @@ namespace BKK.GameEventArchitecture
                     if (!EditorApplication.isPlaying) GUI.enabled = false;
                     if (GUI.Button(button1Rect, "Invoke"))
                     {
-                        list[a].gameEvent.Invoke();
+                        list[a].gameEvent.Raise();
                     }
                     if (GUI.Button(button2Rect, "Cancel"))
                     {
@@ -814,7 +814,7 @@ namespace BKK.GameEventArchitecture
                     if (!EditorApplication.isPlaying) GUI.enabled = false;
                     if (GUI.Button(button1Rect, "Invoke"))
                     {
-                        list[a].gameEvent.Invoke();
+                        list[a].gameEvent.Raise();
                     }
                     if (GUI.Button(button2Rect, "Cancel"))
                     {

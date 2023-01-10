@@ -30,7 +30,7 @@ namespace BKK.GameEventArchitecture
             if (!EditorApplication.isPlaying) GUI.enabled = false;
             if (GUILayout.Button("실행"))
             {
-                gameEvent.Invoke();
+                gameEvent.Raise();
             }
             if (GUILayout.Button("취소"))
             {

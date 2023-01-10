@@ -1,15 +1,13 @@
 using System.Collections.Generic;
-using BKK.Extension;
 using UnityEngine;
-using UnityEngine.Events;
 using Debug = BKK.Debugging.Debug;
 
 namespace BKK.GameEventArchitecture
 {
     [CreateAssetMenu(menuName = "BKK/Game Event Architecture/Game Event", fileName = "New Game Event",order = 0)]
-    public class GameEvent : ScriptableObject
+    public class GameEvent : ScriptableObject, IGameEvent
     {
-        private readonly HashSet<GameEventListener> listeners = new HashSet<GameEventListener>();
+        private readonly HashSet<IGameEventListener> listeners = new HashSet<IGameEventListener>();
 
 #if UNITY_EDITOR
         [HideInInspector]
@@ -19,7 +17,7 @@ namespace BKK.GameEventArchitecture
         /// <summary>
         /// 게임 이벤트에 등록된 모든 게임 이벤트 리스너의 유니티 이벤트들을 호출합니다.
         /// </summary>
-        public virtual void Invoke()
+        public virtual void Raise()
         {
             foreach (var listener in listeners)
             {
@@ -41,13 +39,13 @@ namespace BKK.GameEventArchitecture
         /// 게임 이벤트 리스너를 등록합니다.
         /// </summary>
         /// <param name="listener">등록할 게임 이벤트 리스너</param>
-        public void Register(GameEventListener listener) => listeners.Add(listener);
+        public void Register(IGameEventListener listener) => listeners.Add(listener);
 
         /// <summary>
         /// 게임 이벤트 리스너를 해지합니다.
         /// </summary>
         /// <param name="listener">해지할 게임 이벤트 리스너</param>
-        public void Deregister(GameEventListener listener) => listeners.Remove(listener);
+        public void Deregister(IGameEventListener listener) => listeners.Remove(listener);
 
         /// <summary>
         /// 게임 이벤트에 등록된 게임 이벤트 리스너가 있는지 체크합니다.
@@ -59,7 +57,7 @@ namespace BKK.GameEventArchitecture
         }
     }
     
-    public class GameEvent<T> : ScriptableObject
+    public class GameEvent<T> : ScriptableObject, IGameEvent<T>
     {
         private readonly HashSet<IGameEventListener<T>> listeners = new HashSet<IGameEventListener<T>>();
 
@@ -71,7 +69,7 @@ namespace BKK.GameEventArchitecture
         /// <summary>
         /// 게임 이벤트에 등록된 모든 게임 이벤트 리스너의 유니티 이벤트들을 호출합니다.
         /// </summary>
-        public virtual void Invoke(T value)
+        public virtual void Raise(T value)
         {
             foreach (var listener in listeners)
             {

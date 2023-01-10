@@ -71,7 +71,7 @@ namespace BKK.GameEventArchitecture
         public void RaiseEvent()
         {
             StartCoroutine(RunEvent());
-            StartCoroutine(RunDelayedEvent());
+            StartCoroutine(RunEndEvent());
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace BKK.GameEventArchitecture
             startDelayed = false;
         }
 
-        private IEnumerator RunDelayedEvent()
+        private IEnumerator RunEndEvent()
         {
             if (endDelayed) yield break;
 
@@ -183,7 +183,7 @@ namespace BKK.GameEventArchitecture
         public void RaiseEvent(Ttype value)
         {
             StartCoroutine(RunEvent(value));
-            StartCoroutine(RunDelayedEvent(value));
+            StartCoroutine(RunEndEvent(value));
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace BKK.GameEventArchitecture
             startDelayed = false;
         }
 
-        private IEnumerator RunDelayedEvent(Ttype value)
+        private IEnumerator RunEndEvent(Ttype value)
         {
             if (endDelayed) yield break;
 

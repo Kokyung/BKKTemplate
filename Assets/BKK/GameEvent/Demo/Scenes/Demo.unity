@@ -772,7 +772,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: c9304f8dd5d0bf64a9e8e9559db1f46b, type: 2}
         m_TargetAssemblyTypeName: BKK.GameEvent, Assembly-CSharp
-        m_MethodName: Invoke
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -970,7 +970,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 1f46c5d2ea8973e47b1d708faafaf942, type: 2}
         m_TargetAssemblyTypeName: BKK.GameEvent, Assembly-CSharp
-        m_MethodName: Invoke
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1103,7 +1103,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: c269943e46ba6904c9adbc00cc8725c5, type: 2}
         m_TargetAssemblyTypeName: BKK.GameEvent, Assembly-CSharp
-        m_MethodName: Invoke
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
