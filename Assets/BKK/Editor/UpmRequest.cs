@@ -8,6 +8,9 @@ using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 /// <summary>
+/// UPM을 스크립트로 제어할 수 있게 해주는 컴포넌트입니다.
+///
+/// UPM API 메뉴얼 
 /// https://docs.unity3d.com/Manual/upm-api.html
 /// </summary>
 public static class UpmRequest
@@ -42,7 +45,7 @@ public static class UpmRequest
     {
         // List packages installed for the project
         listRequest = Client.List();    
-        EditorApplication.update += OnProgressList;
+        //EditorApplication.update += OnProgressList;
     }
 
     private static async Task<bool> HasPackage(string identifier)
