@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace BKK.Utility
 {
-    public class UserInterfaceUtility : MonoBehaviour
+    public class UIUtility : MonoBehaviour
     {
         public static bool IsPointerOverUI(int layer = 5)
         {
