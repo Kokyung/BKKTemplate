@@ -10,7 +10,7 @@ using UnityEngine;
 using System;
 using System.Text;
 
-public class CommonFunctionEditor
+public class CustomEditorUtility
 {
     private static StringBuilder sb = new StringBuilder();
 
@@ -158,5 +158,22 @@ public class CommonFunctionEditor
         r.x -= 2;
         r.width += 6;
         EditorGUI.DrawRect( r, color );
+    }
+
+    public static void FileBrowserButton(ref string currentPath, GUIContent guiContent, string panelTitle)
+    {
+        if (GUILayout.Button(guiContent))
+        {
+            FileBrowser(ref currentPath, panelTitle);
+        }
+    }
+
+    public static void FileBrowser(ref string currentPath, string panelTitle)
+    {
+        string folderPath = EditorUtility.SaveFolderPanel("게임 이벤트 폴더 지정", Application.dataPath, "");
+
+        if (string.IsNullOrEmpty(folderPath)) return;
+
+        currentPath = folderPath;
     }
 }
