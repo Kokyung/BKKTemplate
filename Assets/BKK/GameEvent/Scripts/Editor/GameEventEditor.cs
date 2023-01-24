@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace BKK.GameEventArchitecture
+namespace BKK.GameEventArchitecture.Editor
 {
     [CustomEditor(typeof(GameEvent))]
-    public class GameEventEditor : Editor
+    public class GameEventEditor : UnityEditor.Editor
     {
         private GameEvent gameEvent;
 
@@ -73,15 +71,15 @@ namespace BKK.GameEventArchitecture
                     if (GUILayout.Button("저장"))
                     {
                         descriptionOption.locked = true;
-                        UnityEditor.EditorUtility.SetDirty(gameEvent);
+                        EditorUtility.SetDirty(gameEvent);
                     }
                 }
             }
 
             if (EditorApplication.isPlaying) GUI.enabled = true;
 
-            UnityEditor.EditorUtility.SetDirty(gameEvent);
-            if(descriptionOption) UnityEditor.EditorUtility.SetDirty(descriptionOption);
+            EditorUtility.SetDirty(gameEvent);
+            if(descriptionOption) EditorUtility.SetDirty(descriptionOption);
         }
 
         /// <summary>

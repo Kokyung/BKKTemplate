@@ -4,7 +4,7 @@ using Debug = BKK.Debugging.Debug;
 
 namespace BKK.GameEventArchitecture
 {
-    [CreateAssetMenu(menuName = "BKK/Game Event Architecture/Game Event", fileName = "New Game Event",order = 0)]
+    [CreateAssetMenu(menuName = "BKK/Game Event Architecture/Base Game Event", fileName = "New Base Game Event",order = 0)]
     public class GameEvent : ScriptableObject, IGameEvent
     {
         private readonly HashSet<IGameEventListener> listeners = new HashSet<IGameEventListener>();

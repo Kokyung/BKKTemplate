@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BKK.GameEventArchitecture
 {
-    [CreateAssetMenu(menuName = "BKK/Game Event Architecture/Description Option", fileName = "GameEventDescriptionOption", order = 1)]
+    [CreateAssetMenu(menuName = "BKK/Game Event Architecture/Description Option", fileName = "GameEventDescriptionOption", order = 1000)]
     public class GameEventDescriptionOption : ScriptableObject
     {
         public int fontSize = 15;
