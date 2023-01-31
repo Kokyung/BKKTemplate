@@ -124,10 +124,8 @@ namespace BKK.GameEventArchitecture.Editor
     }
     
     [CustomEditor(typeof(GameEvent<>), true)]
-    public class TypedGameEventEditor : UnityEditor.Editor
+    public class CustomTypeGameEventEditor : UnityEditor.Editor
     {
-        //private GameEvent<T> gameEvent;
-
         private GameEventDescriptionOption descriptionOption;
     
         private Vector2 scroll;
@@ -136,7 +134,6 @@ namespace BKK.GameEventArchitecture.Editor
 
         private SerializedProperty _debugValue;
         private SerializedProperty _description;
-        private Type _debugValueType;
         private MethodInfo _raiseMethod;
         private MethodInfo _cancelMethod;
         
@@ -148,7 +145,6 @@ namespace BKK.GameEventArchitecture.Editor
         private void OnEnable()
         {
             _debugValue = serializedObject.FindProperty(debugValuePropertyName);
-            _debugValueType = GetDebugFieldValueType(_debugValue);
             _description = serializedObject.FindProperty(descriptionPropertyName);
             _raiseMethod = target.GetType().BaseType.GetMethod("Raise",
                 BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
@@ -215,13 +211,13 @@ namespace BKK.GameEventArchitecture.Editor
                         EditorUtility.SetDirty(target);
                     }
                 }
+                EditorUtility.SetDirty(descriptionOption);
             }
     
             if (EditorApplication.isPlaying) GUI.enabled = true;
     
             EditorUtility.SetDirty(target);
-            if(descriptionOption) EditorUtility.SetDirty(descriptionOption);
-            
+
             serializedObject.ApplyModifiedProperties();
         }
     
@@ -270,7 +266,7 @@ namespace BKK.GameEventArchitecture.Editor
         
         private void ExecuteCancelMethod(object value)
         {
-            _raiseMethod.Invoke(target, new[] { value });
+            _cancelMethod.Invoke(target, new[] { value });
         }
 
         private object GetDebugFieldValue(SerializedProperty property)
@@ -281,16 +277,6 @@ namespace BKK.GameEventArchitecture.Editor
                 targetType.GetField(debugValuePropertyName, BindingFlags.Instance | BindingFlags.NonPublic);
 
             return targetField.GetValue(property.serializedObject.targetObject);
-        }
-        
-        private Type GetDebugFieldValueType(SerializedProperty property)
-        {
-            Type targetType = property.serializedObject.targetObject.GetType();
-            
-            FieldInfo targetField =
-                targetType.GetField(debugValuePropertyName, BindingFlags.Instance | BindingFlags.NonPublic);
-
-            return targetField.FieldType;
         }
     }
 }
