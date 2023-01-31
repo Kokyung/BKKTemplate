@@ -5,9 +5,9 @@ using Debug = BKK.Debugging.Debug;
 namespace BKK.GameEventArchitecture
 {
     [CreateAssetMenu(menuName = "BKK/Game Event Architecture/Base Game Event", fileName = "New Base Game Event",order = 0)]
-    public class GameEvent : IGameEvent
+    public class GameEvent : BaseGameEvent
     {
-        private readonly HashSet<IGameEventListener> listeners = new HashSet<IGameEventListener>();
+        private readonly HashSet<BaseGameEventListener> listeners = new HashSet<BaseGameEventListener>();
 
 #if UNITY_EDITOR
         [HideInInspector]
@@ -39,13 +39,13 @@ namespace BKK.GameEventArchitecture
         /// 게임 이벤트 리스너를 등록합니다.
         /// </summary>
         /// <param name="listener">등록할 게임 이벤트 리스너</param>
-        public override void Register(IGameEventListener listener) => listeners.Add(listener);
+        public override void Register(BaseGameEventListener listener) => listeners.Add(listener);
 
         /// <summary>
         /// 게임 이벤트 리스너를 해지합니다.
         /// </summary>
         /// <param name="listener">해지할 게임 이벤트 리스너</param>
-        public override void Deregister(IGameEventListener listener) => listeners.Remove(listener);
+        public override void Deregister(BaseGameEventListener listener) => listeners.Remove(listener);
 
         /// <summary>
         /// 게임 이벤트에 등록된 게임 이벤트 리스너가 있는지 체크합니다.
@@ -57,9 +57,9 @@ namespace BKK.GameEventArchitecture
         }
     }
     
-    public class GameEvent<T> : IGameEvent<T>
+    public class GameEvent<T> : BaseGameEvent<T>
     {
-        private readonly HashSet<IGameEventListener<T>> listeners = new HashSet<IGameEventListener<T>>();
+        private readonly HashSet<BaseGameEventListener<T>> listeners = new HashSet<BaseGameEventListener<T>>();
 
 #if UNITY_EDITOR
         [HideInInspector]
@@ -93,13 +93,13 @@ namespace BKK.GameEventArchitecture
         /// 게임 이벤트 리스너를 등록합니다.
         /// </summary>
         /// <param name="listener">등록할 게임 이벤트 리스너</param>
-        public override void Register(IGameEventListener<T>listener) => listeners.Add(listener);
+        public override void Register(BaseGameEventListener<T>listener) => listeners.Add(listener);
 
         /// <summary>
         /// 게임 이벤트 리스너를 해지합니다.
         /// </summary>
         /// <param name="listener">해지할 게임 이벤트 리스너</param>
-        public override void Deregister(IGameEventListener<T> listener) => listeners.Remove(listener);
+        public override void Deregister(BaseGameEventListener<T> listener) => listeners.Remove(listener);
 
         /// <summary>
         /// 게임 이벤트에 등록된 게임 이벤트 리스너가 있는지 체크합니다.

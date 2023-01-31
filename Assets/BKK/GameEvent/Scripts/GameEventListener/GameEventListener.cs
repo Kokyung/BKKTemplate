@@ -7,7 +7,7 @@ using Debug = BKK.Debugging.Debug;
 
 namespace BKK.GameEventArchitecture
 {
-    public class GameEventListener : MonoBehaviour, IGameEventListener
+    public class GameEventListener : BaseGameEventListener
     {
         [Tooltip("등록할 게임 이벤트"), SerializeField]
         public GameEvent gameEvent;
@@ -67,7 +67,7 @@ namespace BKK.GameEventArchitecture
         /// <summary>
         /// 단일 게임 이벤트 리스너에 등록된 유니티 이벤트를 호출합니다.
         /// </summary>
-        public void RaiseEvent()
+        public override void RaiseEvent()
         {
             if (!this.gameObject.activeSelf) return;
             
@@ -78,7 +78,7 @@ namespace BKK.GameEventArchitecture
         /// <summary>
         /// 이벤트를 정지합니다.
         /// </summary>
-        public void StopEvent()
+        public override void StopEvent()
         {
             onCancel.Invoke();
             StopAllCoroutines();
@@ -113,13 +113,13 @@ namespace BKK.GameEventArchitecture
             endDelayed = false;
         }
         
-        public string GetListenerPath()
+        public override string GetListenerPath()
         {
             return this.GetPath();
         }
     }
     
-    public class GameEventListener<Ttype, Tevent, Tresponse> : MonoBehaviour, IGameEventListener<Ttype>
+    public class GameEventListener<Ttype, Tevent, Tresponse> : BaseGameEventListener<Ttype>
         where Tevent : GameEvent<Ttype> 
         where Tresponse : UnityEvent<Ttype>
     {
@@ -182,7 +182,7 @@ namespace BKK.GameEventArchitecture
         /// <summary>
         /// 단일 게임 이벤트 리스너에 등록된 유니티 이벤트를 호출합니다.
         /// </summary>
-        public void RaiseEvent(Ttype value)
+        public override void RaiseEvent(Ttype value)
         {
             if (!this.gameObject.activeSelf) return;
 
@@ -193,7 +193,7 @@ namespace BKK.GameEventArchitecture
         /// <summary>
         /// 이벤트를 정지합니다.
         /// </summary>
-        public void StopEvent(Ttype value)
+        public override void StopEvent(Ttype value)
         {
             onCancel.Invoke(value);
             StopAllCoroutines();
@@ -228,7 +228,7 @@ namespace BKK.GameEventArchitecture
             endDelayed = false;
         }
 
-        public string GetListenerPath()
+        public override string GetListenerPath()
         {
             return this.GetPath();
         }
