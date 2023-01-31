@@ -57,11 +57,11 @@ namespace BKK.GameEventArchitecture.Editor
         {
             minSize = minWindowSize;
             
-            CustomEditorUtility.DrawSeparator();
+            CustomEditorGUIUtility.DrawSeparator();
 
             selected = EditorGUILayout.Popup(classImportDropDownLabel, selected, options);
             
-            CustomEditorUtility.DrawSeparator();
+            CustomEditorGUIUtility.DrawSeparator();
 
             if (selected == 0)
             {
@@ -90,11 +90,11 @@ namespace BKK.GameEventArchitecture.Editor
             creationPath = EditorGUILayout.TextField(creationPathLabel, creationPath);
             createMenuPath = EditorGUILayout.TextField(createMenuPathLabel, createMenuPath);
             
-            CustomEditorUtility.DrawSeparator();
+            CustomEditorGUIUtility.DrawSeparator();
 
             EditorGUILayout.BeginHorizontal();
             
-            CustomEditorUtility.FileBrowserButton(ref creationPath, folderButtonLabel, folderMenuTitle);
+            CustomEditorGUIUtility.FileBrowserButton(ref creationPath, folderButtonLabel, folderMenuTitle);
 
             if (GUILayout.Button(resetPathButtonLabel))
             {

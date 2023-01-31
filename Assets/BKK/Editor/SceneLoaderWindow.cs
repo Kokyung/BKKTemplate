@@ -28,7 +28,7 @@ public class SceneLoaderWindow : EditorWindow
 
 	void OnGUI()
 	{
-		CustomEditorUtility.DrawUILine( Color.gray );
+		CustomEditorGUIUtility.DrawUILine( Color.gray );
 		
 		GUILayout.BeginHorizontal();
 		GUILayout.Label( "Scene 폴더 지정" );
@@ -37,7 +37,7 @@ public class SceneLoaderWindow : EditorWindow
 		{
 			if ( sceneLoaderData != null )
 			{
-				CustomEditorUtility.FileBrowser(ref sceneLoaderData.currentPath, "Scene 폴더 지정");
+				CustomEditorGUIUtility.FileBrowser(ref sceneLoaderData.currentPath, "Scene 폴더 지정");
 
 				if ( sceneLoaderData.GetSceneNameListCount() == 0 )
 					EditorUtility.DisplayDialog( "안내 팝업", "폴더 내에 scene 파일이 없습니다.", "확인" );
@@ -51,7 +51,7 @@ public class SceneLoaderWindow : EditorWindow
 		if ( sceneLoaderData != null )
 			sceneLoaderData.DrawSceneList();
 
-		CustomEditorUtility.DrawUILine( Color.gray );
+		CustomEditorGUIUtility.DrawUILine( Color.gray );
 
 		sceneLoaderData.loadSceneWhenPlay = GUILayout.Toggle(sceneLoaderData.loadSceneWhenPlay, "플레이시 로드할 Default Scene 지정");
 		
@@ -62,7 +62,7 @@ public class SceneLoaderWindow : EditorWindow
 			sceneLoaderData.mode = (LoadSceneMode)EditorGUILayout.Popup("Load Mode", (int)sceneLoaderData.mode, Enum.GetNames(typeof(LoadSceneMode)));
 		}
 		
-		CustomEditorUtility.DrawUILine( Color.gray );
+		CustomEditorGUIUtility.DrawUILine( Color.gray );
 	}
 
 	private void RefreshSceneList(string folderPath)

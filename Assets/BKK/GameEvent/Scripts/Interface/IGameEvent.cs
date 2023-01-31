@@ -1,24 +1,22 @@
+using UnityEngine;
+
 namespace BKK.GameEventArchitecture
 {
-    public interface IGameEvent
+    public abstract class IGameEvent : ScriptableObject
     {
-        public void Register(IGameEventListener listener);
-        public void Deregister(IGameEventListener listener);
-
-        public void Raise();
-        public void Cancel();
-
-        public bool HasListeners();
+        public abstract void Register(IGameEventListener listener);
+        public abstract void Deregister(IGameEventListener listener);
+        public abstract void Raise();
+        public abstract void Cancel();
+        public abstract bool HasListeners();
     }
     
-    public interface IGameEvent<Ttype>
+    public abstract class IGameEvent<Ttype> : ScriptableObject
     {
-        public void Register(IGameEventListener<Ttype> listener);
-        public void Deregister(IGameEventListener<Ttype> listener);
-
-        public void Raise(Ttype value);
-        public void Cancel(Ttype Value);
-
-        public bool HasListeners();
+        public abstract void Register(IGameEventListener<Ttype> listener);
+        public abstract void Deregister(IGameEventListener<Ttype> listener);
+        public abstract void Raise(Ttype value);
+        public abstract void Cancel(Ttype Value);
+        public abstract bool HasListeners();
     }
 }

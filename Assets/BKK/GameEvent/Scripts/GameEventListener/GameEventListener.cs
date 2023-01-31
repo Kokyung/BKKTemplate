@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using BKK.Extension;
 using UnityEngine;
@@ -152,8 +153,9 @@ namespace BKK.GameEventArchitecture
             {
                 gameEvent.Register(this);
             }
-            catch
+            catch(Exception exception)
             {
+                UnityEngine.Debug.LogException(exception);
                 Debug.LogError($"{this.gameObject.name}의 Game Event Listener에 Game Event가 존재하지 않습니다.");
             }
         } 

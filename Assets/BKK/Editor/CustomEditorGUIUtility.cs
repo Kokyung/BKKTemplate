@@ -10,7 +10,7 @@ using UnityEngine;
 using System;
 using System.Text;
 
-public class CustomEditorUtility
+public class CustomEditorGUIUtility
 {
     private static StringBuilder sb = new StringBuilder();
 
